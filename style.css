@@ -1,0 +1,40 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color:lavender;
+    text-align: center;
+    
+}
+section div{
+    width:24%;
+    float: left;
+    padding:30px;
+    color:slateblue;
+}
+
+section div img {
+    border:5px solid slateblue;
+    border-radius: 20%;
+    width:110%;
+    padding:2px;
+    height:250px;
+
+
+    
+}
+h1 {
+    text-align: center;
+}
+
+#center-img {
+    color:slateblue;
+}
+table {
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+    padding: 3px 10px;
+  }
