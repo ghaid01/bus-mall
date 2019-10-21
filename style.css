@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color:lavender;
+    background:radial-gradient(#29659e, #fff) fixed;
     text-align: center;
     
 }
@@ -10,11 +10,11 @@ section div{
     width:24%;
     float: left;
     padding:30px;
-    color:slateblue;
+    color:rgba(255, 255, 255, 0.651);
 }
 
 section div img {
-    border:5px solid slateblue;
+    border:5px solid rgb(255, 255, 255);
     border-radius: 20%;
     width:110%;
     padding:2px;
@@ -25,6 +25,7 @@ section div img {
 }
 h1 {
     text-align: center;
+    color:rgba(255, 255, 255, 0.651);
 }
 
 #center-img {

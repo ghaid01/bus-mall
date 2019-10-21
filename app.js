@@ -1,7 +1,7 @@
 'use strict'
-var leftImgElem=null;
-var centerImgElem=null;
-var rightImgElem=null;
+var leftImgElem = null;
+var centerImgElem = null;
+var rightImgElem = null;
 
 function Product(name, src) {
     this.name = name;
@@ -61,16 +61,16 @@ function selectRandomProducts() {
     var leftIndex = Math.floor(Math.random() * Product.all.length);
     var centerIndex = Math.floor(Math.random() * Product.all.length);
     var rightIndex = Math.floor(Math.random() * Product.all.length);
-    
+
     while (leftIndex === rightIndex) {
         rightIndex = Math.floor(Math.random() * Product.all.length);
-    }    
+    }
     while (leftIndex === centerIndex) {
         centerIndex = Math.floor(Math.random() * Product.all.length);
-    }    
+    }
     while (rightIndex === centerIndex) {
         centerIndex = Math.floor(Math.random() * Product.all.length);
-    }    
+    }
 
     Product.leftProduct = Product.all[leftIndex];
 
@@ -78,32 +78,44 @@ function selectRandomProducts() {
 
     Product.rightProduct = Product.all[rightIndex];
 
-    
 
-}    
+
+}
+// function updateTotal() {
+//     var tableBody = document.getElementById('report');
+//     tableBody.innerHTML = '';
+//     for (var i = 0; i < Product.all.length; i++) {
+//         var currentProduct = Product.all[i];
+//         var row = addElement('tr', tableBody);
+//         addElement('td', row, currentProduct.name);
+//         addElement('td', row, '' + currentProduct.clickCount);
+//         addElement('td', row, '' + currentProduct.shownCount);
+//     }
+// }
+// function addElement(tag, container, text) {
+//     var element = document.createElement(tag);
+//     container.appendChild(element);
+//     if (text) {
+//         element.textContent = text;
+//     }
+//     return element;
+// }
 function updateTotal() {
-    var tableBody = document.getElementById('report');
-    tableBody.innerHTML = '';
-    for (var i = 0; i < Product.all.length; i++) {
+    var parentElement = document.getElementById("report");
+    var ul = document.createElement('ul');
+    parentElement.appendChild(ul);
+
+    for (var i=0; i< Product.all.length ;i++ ){
+        var li = document.createElement('li');
+        ul.appendChild(li);
         var currentProduct = Product.all[i];
-        var row = addElement('tr', tableBody);
-        addElement('td', row, currentProduct.name);
-        addElement('td', row, '' + currentProduct.clickCount);
-        addElement('td', row, '' + currentProduct.shownCount);
-      }  
-    }  
-    function addElement(tag, container, text) {
-        var element = document.createElement(tag);
-        container.appendChild(element);
-        if(text) {
-          element.textContent = text;  
-        }  
-        return element;
-      }  
+        console.log('cp',currentProduct);
+        var productReport = currentProduct.name + ' had ' + currentProduct.clickCount + ' votes and was shown ' + currentProduct.shownCount + ' times ';
+        li.textContent = productReport ;
 
-
-
-function render() {  
+}
+}
+function render() {
 
     selectRandomProducts();
 
@@ -132,26 +144,29 @@ function clickHandler(event) {
     } else if (clicked === 'right-img') {
         clickedProduct = Product.rightProduct;
     } else if (clicked === 'center-img') {
-        clickedProduct= Product.centerProduct;
+        clickedProduct = Product.centerProduct;
 
 
 
     }
-    if(clickedProduct) {
+    if (clickedProduct) {
 
         clickedProduct.clickCount++;
         Product.roundCount++;
 
         updateTotal();
-        if(Product.roundCount == Product.roundLimit){
+        if (Product.roundCount == Product.roundLimit) {
             alert('You can not click anymore');
-            Product.container.removeEventlistener('click' , clickHandler);
+            Product.container.removeEventListener('click', clickHandler);
+            renderChart();
         } else {
             render();
+            
         }
+
     }
-    
-    
+
+
     // update the shown counter
     // check the round counter against limit
     //          stop user clicks if over limit
@@ -159,10 +174,87 @@ function clickHandler(event) {
     // render the new products
 }
 
-    
+
+function getProductName() {
+    var productName = [];
+    for (var i = 0; i < Product.all.length; i++) {
+        var instantValue = Product.all[i];
+        productName.push(instantValue.name);
+    }
+    return productName;
+}
+
+function clickedPr() {
+
+    var clicked = [];
+    for (var i = 0; i < Product.all.length; i++) {
+        var instantValue = Product.all[i];
+
+        clicked.push(instantValue.clickCount);
+        
+    }
+    return clicked;
+}
+function shownPr() {
+    var shown = [];
+    for (var i = 0; i < Product.all.length; i++) {
+        var instantValue = Product.all[i];
+        shown.push(instantValue.shownCount);
+    }
+    return shownPr
+}
+
+
+function renderChart() {
+    var ctx = document.getElementById('report-chart').getContext('2d');
+
+    var chart = new Chart(ctx, {
+
+        type: 'bar',
+
+        data: {
+            labels: getProductName(),
+
+            datasets: [
+                {
+                    label: 'Vote',
+                    backgroundColor: ['rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)'],
+                    borderColor:['rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)','rgb(105,105,105)'],
+                    data: clickedPr()
+                },
+                {
+                label: 'Shown',
+                backgroundColor:['rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)'],
+                borderColor: ['rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)'],
+                data: shownPr()
+            },
+            {
+                label: 'Name',
+                backgroundColor:['rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)'],
+                borderColor:['rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)','rgb(255, 99, 132)'],
+                data: getProductName()
+
+            }
+
+
+            ]
+        },
+
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
 
 document.getElementById('all-products').addEventListener('click', clickHandler);
 
 updateTotal();
 render();
+
 
