@@ -3,6 +3,7 @@ var leftImgElem = null;
 var centerImgElem = null;
 var rightImgElem = null;
 
+
 function Product(name, src) {
     this.name = name;
     this.src = src;
@@ -15,6 +16,26 @@ Product.roundLimit = 10;
 
 
 Product.all = [];
+// function updateProducts() {
+//     var productsString = JSON.stringify(Product.all);
+//     localStorage.setItem('produts', productsString);
+//   }
+//   function getProducts() {
+//     var data = localStorage.getItem('products');
+//     var productsData = JSON.parse(data);
+//     if (productsData) {
+//       for (var i = 0; i < productsData.length; i++) {
+//         var rawProductObject = productsData[i];
+//         new Product (
+//           rawProductObject.name,
+//           rawProductObject.src,
+//           rawProductObject.clickCount,
+//           rawProductObject.shownCount,
+          
+//         ); 
+//       }
+//       render();
+//     }
 
 Product.container = document.getElementById('all-products');
 Product.leftImgElem = document.getElementById('left-img');
@@ -158,12 +179,16 @@ function clickHandler(event) {
         updateTotal();
         if (Product.roundCount == Product.roundLimit) {
             alert('You can not click anymore');
-            Product.container.removeEventListener('click', clickHandler);
             renderChart();
+            var productsString = JSON.stringify(Product.all);
+            localStorage.setItem('produts', productsString);
+            Product.container.removeEventListener('click', clickHandler);
                 }else {
             render();
+
             
         }
+
 
     }
 
@@ -173,6 +198,12 @@ function clickHandler(event) {
     //          stop user clicks if over limit
     // select new products
     // render the new products
+}
+function storageTesting (){
+if(localStorage.products){
+    var pro = localStorage.getItem('product');
+    Product.all = JSON.parse(pro);
+}
 }
 
 
@@ -257,7 +288,7 @@ console.log(shownPr());
 }
 
 document.getElementById('all-products').addEventListener('click', clickHandler);
-
+storageTesting();
 updateTotal();
 render();
 
