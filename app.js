@@ -102,6 +102,7 @@ function selectRandomProducts() {
 // }
 function updateTotal() {
     var parentElement = document.getElementById("report");
+    parentElement.innerHTML = '';
     var ul = document.createElement('ul');
     parentElement.appendChild(ul);
 
