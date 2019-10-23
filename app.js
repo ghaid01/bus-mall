@@ -16,26 +16,6 @@ Product.roundLimit = 10;
 
 
 Product.all = [];
-// function updateProducts() {
-//     var productsString = JSON.stringify(Product.all);
-//     localStorage.setItem('produts', productsString);
-//   }
-//   function getProducts() {
-//     var data = localStorage.getItem('products');
-//     var productsData = JSON.parse(data);
-//     if (productsData) {
-//       for (var i = 0; i < productsData.length; i++) {
-//         var rawProductObject = productsData[i];
-//         new Product (
-//           rawProductObject.name,
-//           rawProductObject.src,
-//           rawProductObject.clickCount,
-//           rawProductObject.shownCount,
-          
-//         ); 
-//       }
-//       render();
-//     }
 
 Product.container = document.getElementById('all-products');
 Product.leftImgElem = document.getElementById('left-img');
@@ -75,6 +55,7 @@ new Product('DRAGON', 'img/dragon.jpg');
 new Product('DOG-DUCK', 'img/dog-duck.jpg');
 
 console.log(Product.all);
+// byy the time we get here Product.all.length is 20
 
 // Set left, center and right global variables
 function selectRandomProducts() {
@@ -102,6 +83,9 @@ function selectRandomProducts() {
 
 
 }
+
+
+
 // function updateTotal() {
 //     var tableBody = document.getElementById('report');
 //     tableBody.innerHTML = '';
@@ -176,21 +160,31 @@ function clickHandler(event) {
         clickedProduct.clickCount++;
         Product.roundCount++;
 
-        updateTotal();
+        // updateTotal();
         if (Product.roundCount == Product.roundLimit) {
+            updateTotal();
             alert('You can not click anymore');
             renderChart();
+           
+            Product.container.removeEventListener('click', clickHandler);
+           
             var productsString = JSON.stringify(Product.all);
             localStorage.setItem('produts', productsString);
-            Product.container.removeEventListener('click', clickHandler);
-                }else {
-            render();
+            // var productString = JSON.stringify(Product.all)
+            // localStorage.setItem('products',productString);
 
+
+
+
+        }else {
+            render();
+            
             
         }
-
-
+        
+        
     }
+   
 
 
     // update the shown counter
@@ -199,12 +193,7 @@ function clickHandler(event) {
     // select new products
     // render the new products
 }
-function storageTesting (){
-if(localStorage.products){
-    var pro = localStorage.getItem('product');
-    Product.all = JSON.parse(pro);
-}
-}
+
 
 
 function getProductName() {
@@ -286,10 +275,26 @@ console.log(shownPr());
         }
     });
 }
-
+// just pass in the function itself, this means when you click run the clickHandler(dont call the function)
 document.getElementById('all-products').addEventListener('click', clickHandler);
-storageTesting();
-updateTotal();
+function getStoredProducts(){
+  var productString= localStorage.getItem('products');
+  if (productString){
+  var rawObjectArray = JSON.parse(productString);
+//   var instanceArray = [];
+  for(var i in rawObjectArray){
+      var rawObject= rawObjectArray[i];
+    //   var newInstance = new Product(rawObject.name, rawObject.src);
+    var currentInstance = Products.all[i];
+    currentInstance.clickCount = rawObject.clickCount;
+    currentInstance.shownCount = rawObject.shownCount;
+      
+  }
+//   Product.all = instanceArray;
+  }
+}
+
 render();
+
 
 
