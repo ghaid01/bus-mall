@@ -163,13 +163,14 @@ function clickHandler(event) {
         // updateTotal();
         if (Product.roundCount == Product.roundLimit) {
             updateTotal();
+            getStoredProducts();
             alert('You can not click anymore');
             renderChart();
            
             Product.container.removeEventListener('click', clickHandler);
            
-            var productsString = JSON.stringify(Product.all);
-            localStorage.setItem('produts', productsString);
+            var productString = JSON.stringify(Product.all);
+            localStorage.setItem('products', productString);
             // var productString = JSON.stringify(Product.all)
             // localStorage.setItem('products',productString);
 
@@ -285,7 +286,7 @@ function getStoredProducts(){
   for(var i in rawObjectArray){
       var rawObject= rawObjectArray[i];
     //   var newInstance = new Product(rawObject.name, rawObject.src);
-    var currentInstance = Products.all[i];
+    var currentInstance = Product.all[i];
     currentInstance.clickCount = rawObject.clickCount;
     currentInstance.shownCount = rawObject.shownCount;
       
@@ -293,8 +294,9 @@ function getStoredProducts(){
 //   Product.all = instanceArray;
   }
 }
-
+getStoredProducts();
 render();
+
 
 
 
