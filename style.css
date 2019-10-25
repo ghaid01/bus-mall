@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 body{
-    background:radial-gradient(#29659e, #fff) fixed;
+    background:radial-gradient(#eebe91c7, rgba(233, 144, 61, 0.842)) fixed;
     text-align: center;
     
 }
@@ -10,32 +10,34 @@ section div{
     width:24%;
     float: left;
     padding:30px;
-    color:rgba(255, 255, 255, 0.651);
+    color:rgb(69, 92, 63);
+   font-family: Bradley Hand, cursive;
 }
 
 section div img {
-    border:5px solid rgb(255, 255, 255);
+    border:5px solid rgb(69, 92, 63);
     border-radius: 20%;
     width:110%;
     padding:2px;
     height:250px;
+    text-align: center;
 
 
     
 }
 h1 {
     text-align: center;
-    color:rgba(255, 255, 255, 0.651); 
+    color:rgb(69, 92, 63); 
+    font-family: Bradley Hand, cursive;
+    font-size:50px ;
 }
 
-#center-img {
-    color:slateblue;
-}
-table {
+
+/* table {
     border-collapse: collapse;
 }
 
 table, th, td {
     border: 1px solid black;
     padding: 3px 10px;
-}
+} */

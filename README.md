@@ -1,1 +1,2 @@
 # bus-mall
+bus mall is a catalog of different products, made sure that the products don't show twice in one slide and counting all the clicked and shown products using JavaScript, styled the fonts and colors with CSS
