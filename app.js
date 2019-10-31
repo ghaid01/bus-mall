@@ -193,6 +193,7 @@ function clickHandler(event) {
     //          stop user clicks if over limit
     // select new products
     // render the new products
+    //trying to make it work
 }
 
 
@@ -278,6 +279,7 @@ console.log(shownPr());
 }
 // just pass in the function itself, this means when you click run the clickHandler(dont call the function)
 document.getElementById('all-products').addEventListener('click', clickHandler);
+
 function getStoredProducts(){
   var productString= localStorage.getItem('products');
   if (productString){
